@@ -1,2 +1,3 @@
+include ':OneStepMessage'
 include ':app'
 rootProject.name = "OneStepMessage"
