@@ -2,6 +2,7 @@ package com.shawn.oneStepMessage
 
 import android.app.Activity
 import android.app.Application
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
@@ -17,22 +18,42 @@ class OSM private constructor() : ViewModelStoreOwner {
 
     private lateinit var mFactory: ViewModelProvider.Factory
 
-    private lateinit var mApplication: Application
-
     companion object {
-        val INSTANT by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        private val INSTANT by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
             OSM()
+        }
+
+        private var mApplication: Application? = null
+
+        /**
+         * 初始化OneStepMessage
+         * @param application
+         * @param showLog 是否显示log，默认为显示
+         */
+        fun init(application: Application, showLog: Boolean = true) {
+            OSM_SHOW_LOG = showLog
+            mApplication = application
+        }
+
+        //获取viewModel
+        fun <T : ViewModel> with(clazz: Class<T>): T {
+            return INSTANT.getAppViewModelProvider()[clazz]
+        }
+
+        //获取viewModel
+        fun <T : ViewModel> with(clazz: Class<T>, activity: Activity): T {
+            return INSTANT.getAppViewModelProvider(activity)[clazz]
         }
     }
 
     /**
      * 获取viewModelProvider
      */
-    fun getAppViewModelProvider(): ViewModelProvider {
+    private fun getAppViewModelProvider(): ViewModelProvider {
         return ViewModelProvider(INSTANT, INSTANT.getAppFactory())
     }
 
-    fun getAppViewModelProvider(activity: Activity): ViewModelProvider {
+    private fun getAppViewModelProvider(activity: Activity): ViewModelProvider {
         return ViewModelProvider(
             INSTANT,
             INSTANT.getAppFactory(activity)
@@ -43,8 +64,11 @@ class OSM private constructor() : ViewModelStoreOwner {
      * 获取factory
      */
     private fun getAppFactory(): ViewModelProvider.Factory {
+        if (mApplication == null) {
+            throw Exception("先执行init()再使用!")
+        }
         if (!this::mFactory.isInitialized) {
-            mFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(mApplication)
+            mFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(mApplication!!)
         }
         return mFactory
     }

@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="second_activity_bg_color">#f4edd9</color>
+    <color name="fragment_first_bg_color">#9edeef</color>
+    <color name="fragment_second_bg_color">#cbb65a</color>
+    <color name="app_toolbar_color">#4a9fb6</color>
 </resources>

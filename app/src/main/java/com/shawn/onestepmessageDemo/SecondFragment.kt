@@ -6,7 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.lifecycle.ViewModelStore
 import androidx.navigation.fragment.findNavController
+import com.shawn.oneStepMessage.OSM
+import com.shawn.onestepmessageDemo.viewModel.DemoViewModel
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -26,6 +30,16 @@ class SecondFragment : Fragment() {
 
         view.findViewById<Button>(R.id.button_second).setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        }
+
+        //监听消息1
+        OSM.with(DemoViewModel::class.java).message1.observeEvent(this, ViewModelStore()){
+            view.findViewById<TextView>(R.id.textView_second_message1).text = it
+        }
+
+        //监听消息2
+        OSM.with(DemoViewModel::class.java).message2.observeEvent(this, ViewModelStore()){
+            view.findViewById<TextView>(R.id.textView_second_message2).text = it.toString()
         }
     }
 }
