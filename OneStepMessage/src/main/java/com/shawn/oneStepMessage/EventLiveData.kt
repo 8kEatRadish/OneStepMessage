@@ -51,6 +51,19 @@ class EventLiveData<T> : LiveData<Event<T>>() {
     }
     //kotlin中(T) -> Unit 写法在java中使用不方便，特意为java 提供callback版本
     @MainThread
+    fun observeEvent(owner: LifecycleOwner, callback: OnChanged<T>): Observer<Event<T>> {
+        //拦截下发事件，判断时候需要下发
+        val wrapperObserver = Observer<Event<T>>() {
+            it.getContentIfNotHandled()?.let { data ->
+                callback.onChanged(data)
+            }
+        }
+        //注册事件
+        super.observe(owner, wrapperObserver)
+        return wrapperObserver
+    }
+
+    @MainThread
     fun observeEvent(
         owner: LifecycleOwner,
         viewModelStore: ViewModelStore,
