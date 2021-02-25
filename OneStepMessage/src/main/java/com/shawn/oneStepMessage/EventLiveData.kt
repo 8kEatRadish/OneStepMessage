@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModelStore
 
 /**
  * 文件: EventLiveData.kt
- * 描述: 事件liveData
+ * 描述: 只可读事件
  * 作者: SuiHongWei 2021/2/22
  */
-class EventLiveData<T> : LiveData<Event<T>>() {
+open class EventLiveData<T> : LiveData<Event<T>>() {
 
     /**
      * 事件只能被一个观察者消费
@@ -86,21 +86,6 @@ class EventLiveData<T> : LiveData<Event<T>>() {
 
     override fun observeForever(observer: Observer<in Event<T>>) {
         throw Exception("请使用observeEvent对事件进行监听！")
-    }
-
-    fun postEventValue(value: T) {
-
-        "post message : ${value.toString()} ; ".showLog(javaClass.simpleName)
-
-        super.postValue(Event(value))
-    }
-
-    //liveData源码中有线程检测，必须在主线程中用
-    fun setEventValue(value: T) {
-
-        "set message : ${value.toString()} ; ".showLog(javaClass.simpleName)
-
-        super.setValue(Event(value))
     }
 
     interface OnChanged<T> {

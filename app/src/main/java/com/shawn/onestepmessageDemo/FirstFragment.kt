@@ -34,12 +34,12 @@ class FirstFragment : Fragment() {
         }
 
         //监听消息1
-        OSM.with(DemoViewModel::class.java).message1.observeEvent(this, ViewModelStore()){
+        OSM.with(DemoViewModel::class.java).getMessage1().observeEvent(this, ViewModelStore()){
             view.findViewById<TextView>(R.id.textView_first_message1).text = it
         }
 
         //监听消息2
-        OSM.with(DemoViewModel::class.java).message2.observeEvent(this, ViewModelStore()){
+        OSM.with(DemoViewModel::class.java).getMessage2().observeEvent(this, ViewModelStore()){
             view.findViewById<TextView>(R.id.textView_first_message2).text = it.toString()
         }
     }

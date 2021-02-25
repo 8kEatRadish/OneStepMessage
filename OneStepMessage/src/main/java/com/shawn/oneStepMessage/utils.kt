@@ -28,7 +28,7 @@ internal fun String.showLog(tag: String, type: LogType = LogType.DEBUG) {
         //在堆栈中找到相应方法
         for (i in trace.indices) {
             if (trace[i].methodName.compareTo("showLog") == 0) {
-                currentIndex = i + 3
+                currentIndex = i + 4
                 break
             }
         }
@@ -76,8 +76,9 @@ internal fun String.showLog(tag: String, type: LogType = LogType.DEBUG) {
 
 private fun Int.drawLine(): String {
     var builder = StringBuilder()
-    repeat(this + 1) {
-        builder.append("||")
-    }
-    return builder.toString()
+//    repeat(this + 1) {
+//        builder.append("｜")
+//    }
+//    return builder.toString()
+    return "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 }

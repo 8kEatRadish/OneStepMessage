@@ -25,18 +25,18 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
             //发送一个消息1
-            OSM.with(DemoViewModel::class.java).message1.postEventValue("更改message1了 random = ${(0..100).random()}")
+            OSM.with(DemoViewModel::class.java).changeMessage1("更改message1了 random = ${(0..100).random()}")
         }
         findViewById<FloatingActionButton>(R.id.fab_2).setOnClickListener {
             //发送一个消息2
-            OSM.with(DemoViewModel::class.java).message2.postEventValue(Bean("name${(0..100).random()}","feature1",(0..100).random(),true))
+            OSM.with(DemoViewModel::class.java).changeMessage2(Bean("name${(0..100).random()}","feature1",(0..100).random(),true))
         }
         //监听消息1
-        OSM.with(DemoViewModel::class.java).message1.observeEvent(this, ViewModelStore()){
+        OSM.with(DemoViewModel::class.java).getMessage1().observeEvent(this, ViewModelStore()){
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         }
         //监听消息2
-        OSM.with(DemoViewModel::class.java).message2.observeEvent(this, ViewModelStore()){
+        OSM.with(DemoViewModel::class.java).getMessage2().observeEvent(this, ViewModelStore()){
             Toast.makeText(this,it.toString(),Toast.LENGTH_SHORT).show()
         }
     }
