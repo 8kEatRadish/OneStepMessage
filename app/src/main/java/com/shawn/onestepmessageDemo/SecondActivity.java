@@ -29,14 +29,14 @@ public class SecondActivity extends AppCompatActivity {
         findViewById(R.id.button_second_message1).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                OSM.Companion.with(DemoViewModel.class).changeMessage1("更改message1了 random = " + r.nextInt());
+                OSM.Companion.with(DemoViewModel.class).getMessage1().postEventValue("更改message1了 random = " + r.nextInt());
             }
         });
 
         findViewById(R.id.button_second_message2).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                OSM.Companion.with(DemoViewModel.class).changeMessage2(new Bean("name" + r.nextInt(),"feature1",r.nextInt(),true));
+                OSM.Companion.with(DemoViewModel.class).getMessage2().postEventValue(new Bean("name" + r.nextInt(),"feature1",r.nextInt(),true));
             }
         });
 

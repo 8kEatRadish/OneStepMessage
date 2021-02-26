@@ -16,25 +16,25 @@ enum class LogType {
  * @param tag show tag
  * @param type show log level
  */
-internal fun String.showLog(tag: String, type: LogType = LogType.DEBUG) {
+internal fun String.showLogWithPosition(tag: String, type: LogType = LogType.DEBUG) {
     if (!OSM_SHOW_LOG) return
 
     val trace: Array<StackTraceElement> = Thread.currentThread().stackTrace
-    val where = if (trace == null || trace.isEmpty()) {
+    val where = if (trace.isEmpty()) {
         null
     } else {
 
         var currentIndex = -1
         //在堆栈中找到相应方法
         for (i in trace.indices) {
-            if (trace[i].methodName.compareTo("showLog") == 0) {
-                currentIndex = i + 4
+            if (trace[i].methodName.compareTo("showLogWithPosition") == 0) {
+                currentIndex = i + 3
                 break
             }
         }
 
         //防止越界
-        if (currentIndex < trace.size) {
+        if (currentIndex < trace.size && currentIndex > -1) {
             "${trace[currentIndex].className}.${trace[currentIndex].methodName} (${trace[currentIndex].fileName}:${trace[currentIndex].lineNumber})"
         } else {
             ""
