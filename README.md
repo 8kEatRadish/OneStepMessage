@@ -2,8 +2,6 @@
 
 # OneStepMessage
 
-![Workflow result](https://github.com/8kEatRadish/OneStepMessage/workflows/Check/badge.svg)
-
 ## 简介
 
 基于ViewModel和LiveData的消息总线框架。
@@ -72,6 +70,8 @@
 - **无需注册、注销，减少代码风险**
 
 - **Log定位，每一条消息都可以直接定位到发送代码位置，方便调试**
+
+![log.png](https://i.loli.net/2021/03/02/jKglNVvfeCOhLSo.png)
 
 **下版本改进方向：**
 
