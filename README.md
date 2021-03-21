@@ -108,11 +108,9 @@
 
 - **一行代码发送消息，一行代码订阅消息。**
 
-  ```java
-  		  findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-              //发送一个消息1
-              OSM.with(DemoViewModel::class.java).message1.postEventValue("更改message1了 random = ${(0..100).random()}")
-          }
+  ```kotlin
+          //发送一个消息1
+          OSM.with(DemoViewModel::class.java).message1.postEventValue("更改message1了 random = ${(0..100).random()}")
          
           //监听消息1
           OSM.with(DemoViewModel::class.java).message1.observeEvent(this, ViewModelStore()){
@@ -124,13 +122,10 @@
 - **针对Java，添加了CallBack优化，提升编写体验。**
 
   ```java
-  		  findViewById(R.id.button_second_message1).setOnClickListener(new View.OnClickListener(){
-              @Override
-              public void onClick(View v) {
-                  OSM.Companion.with(DemoViewModel.class).getMessage1().postEventValue("更改message1了 random = " + r.nextInt());
-              }
-          });
-  
+          //发送一个消息1
+          OSM.Companion.with(DemoViewModel.class).getMessage1().postEventValue("更改message1了 random = " + r.nextInt());
+         
+          //监听消息1
           OSM.Companion.with(DemoViewModel.class).getMessage1().observeEvent(this, new ViewModelStore(), new EventLiveData.OnChanged<String>() {
               @Override
               public void onChanged(String value) {
