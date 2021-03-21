@@ -18,21 +18,25 @@ class OSM private constructor() : ViewModelStoreOwner {
 
     private lateinit var mFactory: ViewModelProvider.Factory
 
+    private var mApplication: Application? = null
+
     companion object {
         private val INSTANT by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
             OSM()
         }
-
-        private var mApplication: Application? = null
 
         /**
          * 初始化OneStepMessage
          * @param application
          * @param showLog 是否显示log，默认为显示
          */
-        fun init(application: Application, showLog: Boolean = true) {
+        internal fun init(application: Application, showLog: Boolean = true) {
             OSM_SHOW_LOG = showLog
-            mApplication = application
+            INSTANT.mApplication = application
+        }
+
+        fun setLog(showLog: Boolean) {
+            OSM_SHOW_LOG = showLog
         }
 
         //获取viewModel
