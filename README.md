@@ -8,7 +8,7 @@
 
 ## 有什么好处
 
-**OneStepMessage**基于LiveData和ViewModel，所以LiveData的优点它都有(具体源码分析请查看上方LiveData到底是啥)：
+**OneStepMessage**基于LiveData和ViewModel，所以LiveData的优点它都有：
 
 - **确保界面符合数据状态**
 - **不会发生内存泄漏**
