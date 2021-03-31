@@ -28,4 +28,7 @@ class DemoViewModel : ViewModel() {
             return false
         }
     })
+
+    //不添加审查代码，默认不做审查
+    val message3 = EventLiveData<Int>()
 }

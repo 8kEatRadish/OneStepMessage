@@ -12,7 +12,11 @@ import androidx.lifecycle.ViewModelStore
  * 描述: 消息事件
  * 作者: SuiHongWei 2021/2/22
  */
-open class EventLiveData<T> constructor(private val postEventReview: PostEventReview<T>) : LiveData<Event<T>>() {
+open class EventLiveData<T> constructor(private val postEventReview: PostEventReview<T> = object : PostEventReview<T>{
+    override fun review(value: T): Boolean {
+        return true
+    }
+}) : LiveData<Event<T>>() {
 
     /**
      * 事件只能被一个观察者消费
