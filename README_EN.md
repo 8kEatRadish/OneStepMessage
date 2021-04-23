@@ -131,10 +131,10 @@ As the name suggests, this framework is called a one-step message, so the usage 
 - **One line of code sends a message, one line of code subscribes to a message.**
 
   ```kotlin
-          //发送一个消息1
+          //Send a message1
           OSM.with(DemoViewModel::class.java).message1.postEventValue("更改message1了 random = ${(0..100).random()}")
          
-          //监听消息1
+          //Listen for messages1
           OSM.with(DemoViewModel::class.java).message1.observeEvent(this, ViewModelStore()){
               Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
           }
@@ -144,10 +144,10 @@ As the name suggests, this framework is called a one-step message, so the usage 
 - **For Java, CallBack optimization is added to improve the writing experience.**
 
   ```java
-          //发送一个消息1
+          //Send a message1
           OSM.Companion.with(DemoViewModel.class).getMessage1().postEventValue("更改message1了 random = " + r.nextInt());
          
-          //监听消息1
+          //Listen for messages1
           OSM.Companion.with(DemoViewModel.class).getMessage1().observeEvent(this, new ViewModelStore(), new EventLiveData.OnChanged<String>() {
               @Override
               public void onChanged(String value) {
@@ -174,23 +174,23 @@ This situation is caused because LiveData has a problem, that is, it will send m
 
 ```java
     /**
-     * 事件只能被一个观察者消费
+     * Event can only be consumed by one observer
      */
     @MainThread
     fun observeEvent(owner: LifecycleOwner, onChanged: (T) -> Unit): Observer<Event<T>> {
-        //拦截下发事件，判断时候需要下发
+        //Intercept and issue events, and need to issue when judging
         val wrapperObserver = Observer<Event<T>>() {
             it.getContentIfNotHandled()?.let { data ->
                 onChanged.invoke(data)
             }
         }
-        //注册事件
+        //Registration issue
         super.observe(owner, wrapperObserver)
         return wrapperObserver
     }
 
     /**
-     * 事件可以被多个观察者消费，每个观察者只能消费一次
+     * Events can be consumed by multiple observers, each observer can only consume once
      */
     @MainThread
     fun observeEvent(
@@ -198,13 +198,13 @@ This situation is caused because LiveData has a problem, that is, it will send m
             viewModelStore: ViewModelStore,
             onChanged: (T) -> Unit
     ): Observer<Event<T>> {
-        //拦截下发事件，判断该观察者是否需要下发
+        //Intercept the issued event and determine whether the observer needs to issue
         val wrapperObserver = Observer<Event<T>>() {
             it.getContentIfNotHandled(viewModelStore)?.let() { data ->
                 onChanged.invoke(data)
             }
         }
-        //注册事件
+        //Registration issue
         super.observe(owner, wrapperObserver)
         return wrapperObserver
     }
@@ -221,9 +221,9 @@ This situation is caused because LiveData has a problem, that is, it will send m
     }
 
     /**
-     * 不同观察者分别记录分发状态
-     * 如果该观察者没有下发过则下发数据
-     * 否则返回null
+     * Different observers record the distribution status separately
+     * If the observer has not sent the data, send the data
+     * Otherwise return null
      */
     fun getContentIfNotHandled(viewModelStore: ViewModelStore): T? {
         return if (map.contains(viewModelStore)) {
