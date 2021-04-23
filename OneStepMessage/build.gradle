@@ -48,30 +48,42 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+
+    implementation 'com.github.sweetying520:AndroidUtils:1.0.1'
 }
+
+
+//==============================JitPack 上传插件配置 start=====================
+apply plugin: 'com.github.dcendents.android-maven'
+//组名 com.github是固定的,后面的sweetying520是我Github的用户名,替换成你自己的就可以了
+group='com.github.8kEatRadish'
+//==============================JitPack 上传插件配置 end=======================
+
+
 
 //打包根目录执行 ./gradlew uploadArchives
 
 //打包发布配置开始
-apply plugin: 'maven'
-ext {
-    // 从Github上clone下来的项目的本地地址
-    GITHUB_REPO_PATH = "/Users/mac/Github/OneStepMessage"       //这里指定的就是刚刚新建项目后clone下来的在本地的路径
-    PUBLISH_GROUP_ID = 'com.shawn'
-    PUBLISH_ARTIFACT_ID = 'one-step-message'
-    PUBLISH_VERSION = '1.0.0'
-}
-uploadArchives {
-    repositories.mavenDeployer {
-        def deployPath = file(project.GITHUB_REPO_PATH)
-        repository(url: "file://${deployPath.absolutePath}")
-        pom.project {
-            groupId project.PUBLISH_GROUP_ID
-            artifactId project.PUBLISH_ARTIFACT_ID
-            version project.PUBLISH_VERSION
-        }
-    }
-}
+//apply plugin: 'maven'
+//ext {
+//    // 从Github上clone下来的项目的本地地址
+//    GITHUB_REPO_PATH = "/Users/mac/Github/OneStepMessage"       //这里指定的就是刚刚新建项目后clone下来的在本地的路径
+//    PUBLISH_GROUP_ID = 'com.shawn'
+//    PUBLISH_ARTIFACT_ID = 'one-step-message'
+//    PUBLISH_VERSION = '1.0.0'
+//}
+//uploadArchives {
+//    repositories.mavenDeployer {
+//        def deployPath = file(project.GITHUB_REPO_PATH)
+//        repository(url: "file://${deployPath.absolutePath}")
+//        pom.project {
+//            groupId project.PUBLISH_GROUP_ID
+//            artifactId project.PUBLISH_ARTIFACT_ID
+//            version project.PUBLISH_VERSION
+//        }
+//    }
+//}
 
 // 源代码一起打包
 //task androidSourcesJar(type: Jar) {
