@@ -45,5 +45,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation project(':OneStepMessageLib')
+    implementation 'com.github.8kEatRadish:OneStepMessage:1.0.0'
 }
