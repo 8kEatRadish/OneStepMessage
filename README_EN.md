@@ -6,7 +6,7 @@
 
 [![掘金](https://img.shields.io/badge/%E6%8E%98%E9%87%91-8kEatRadish-green)](https://juejin.cn/post/6946370050089549861) [![博客](https://img.shields.io/badge/%E5%8D%9A%E5%AE%A2-%E8%B4%B0%E6%8B%BE%E8%82%86%E7%9A%84%E5%AE%A0%E7%89%A9-green)](https://www.keeplovepet.cn/) 
 
-> ![english](https://img.shields.io/badge/%E8%AF%AD%E8%A8%80-%E4%B8%AD%E6%96%87-green) 
+> [![english](https://img.shields.io/badge/%E8%AF%AD%E8%A8%80-%E4%B8%AD%E6%96%87-green)](https://github.com/8kEatRadish/OneStepMessage/blob/master/README.md#onestepmessage)
 
 ## Introduction
 
