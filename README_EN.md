@@ -2,42 +2,44 @@
 
 # OneStepMessage
 
-![forks](https://img.shields.io/github/forks/8kEatRadish/OneStepMessage) ![starts](https://img.shields.io/github/stars/8kEatRadish/OneStepMessage) ![issues](https://img.shields.io/github/issues/8kEatRadish/OneStepMessage) ![license](https://img.shields.io/github/license/8kEatRadish/OneStepMessage)[![掘金](https://img.shields.io/badge/%E6%8E%98%E9%87%91-8kEatRadish-green)](https://juejin.cn/post/6946370050089549861) [![博客](https://img.shields.io/badge/%E5%8D%9A%E5%AE%A2-%E8%B4%B0%E6%8B%BE%E8%82%86%E7%9A%84%E5%AE%A0%E7%89%A9-green)](https://www.keeplovepet.cn/) 
+![forks](https://img.shields.io/github/forks/8kEatRadish/OneStepMessage) ![starts](https://img.shields.io/github/stars/8kEatRadish/OneStepMessage) ![issues](https://img.shields.io/github/issues/8kEatRadish/OneStepMessage) ![license](https://img.shields.io/github/license/8kEatRadish/OneStepMessage)
 
-> ![english](https://img.shields.io/badge/%20LANGUAGE-ENGLISH-green) 
+[![掘金](https://img.shields.io/badge/%E6%8E%98%E9%87%91-8kEatRadish-green)](https://juejin.cn/post/6946370050089549861) [![博客](https://img.shields.io/badge/%E5%8D%9A%E5%AE%A2-%E8%B4%B0%E6%8B%BE%E8%82%86%E7%9A%84%E5%AE%A0%E7%89%A9-green)](https://www.keeplovepet.cn/) 
 
-## 简介
+> ![english](https://img.shields.io/badge/%E8%AF%AD%E8%A8%80-%E4%B8%AD%E6%96%87-green) 
 
-基于ViewModel和LiveData的消息总线框架。
+## Introduction
 
-## 有什么好处
+Message bus framework based on ViewModel and LiveData.
 
-**OneStepMessage**基于LiveData和ViewModel，所以LiveData的优点它都有：
+## What are the advantages?
 
-- **确保界面符合数据状态**
-- **不会发生内存泄漏**
-- **不会因 Activity 停止而导致崩溃**
-- **不再需要手动处理生命周期** 
-- **数据始终保持最新状态**
+**OneStepMessage** based on ViewModel and LiveData，So it has the advantages of LiveData：
 
-对比EventBus和LiveDataBus而言，**OneStepMessage**具有的优势有：
+- **Ensures your UI matches your data state**
+- **No memory leaks**
+- **No crashes due to stopped activities**
+- **No more manual lifecycle handling**
+- **Always up to date data**
 
-- **可以编写模块消息，控制消息作用范围**
+Compared with EventBus and LiveDataBus, **OneStepMessage** has the following advantages:
 
-  单独模块创建ViewModel可以使消息的范围在一个模块里，在公共模块创建ViewModel可以使消息为全局消息，做到消息可控。
+- **You can write module messages to control the scope of the message**
 
-- **业务进行审查逻辑，控制消息发送入口，消息有唯一可信发送源**
+  Creating a ViewModel in a separate module can make the scope of the message in one module, and creating a ViewModel in a public module can make the message a global message, making the message controllable.
 
-  每一个message在创建的时候都要有业务自己传入审查代码，控制消息发送，该message的所有发送都要经过审查，可以确定唯一可信发送源。
+- **Business review logic, control message sending entrance, message has only trusted sending source**
+
+  When each message is created, the business itself must pass in the review code to control the sending of the message. All sending of the message must be reviewed to determine the only trusted source.
 
   ```java
   class DemoViewModel : ViewModel() {
   
-      //添加审查代码，控制唯一可信源，所有消息都可以业务自己控制是否发送
+      //Add review code to control the only trusted source, all messages can be sent or not controlled by the business
       val message1 = EventLiveData(object : EventLiveData.PostEventReview<String> {
           override fun review(value: String): Boolean {
   
-              //TODO 消息发送审查代码，返回true审查通过可以发送，返回false审查不通过不可以发送
+              //TODO Message to send the review code, return true to review and can be sent, return false to review and cannot be sent
   
               return true
           }
@@ -45,7 +47,7 @@
       val message2 = EventLiveData(object : EventLiveData.PostEventReview<Bean> {
           override fun review(value: Bean): Boolean {
   
-              //TODO 消息发送审查代码，返回true审查通过可以发送，返回false审查不通过不可以发送
+              //TODO Message to send the review code, return true to review and can be sent, return false to review and cannot be sent
   
               return false
           }
@@ -53,7 +55,7 @@
   }
   ```
 
-  在EventLiveData.class中：
+  In EventLiveData.class:
 
   ```java
       fun postEventValue(value: T) {
@@ -69,17 +71,17 @@
       }
   ```
 
-- **基于Jetpack库，无需引入其他三方库**
+- **Based on the Jetpack library, no need to introduce other third-party libraries**
 
-- **无需注册、注销，减少代码风险**
+- **No need to register or cancel, reducing code risk**
 
-- **Log定位，每一条消息都可以直接定位到发送代码位置，方便调试**
+- **Log positioning, each message can be directly located to the sending code position, which is convenient for debugging**
 
 ![log.png](https://i.loli.net/2021/03/02/jKglNVvfeCOhLSo.png)
 
-## 引入方法
+## How to import the library?
 
-- **根目录下build.gradle添加**
+- **Add it in your root build.gradle at the end of repositories:**
 
   ```css
   	allprojects {
@@ -90,7 +92,7 @@
   	}
   ```
 
-- **在module下build.gradle添加**
+- **Add the dependency**
 
   ```css
   	dependencies {
@@ -98,28 +100,27 @@
   	}
   ```
 
-## 使用方法
+## How to use the library?
 
-顾名思义，这个框架叫一步消息，所以使用方式也是一步的：
+As the name suggests, this framework is called a one-step message, so the usage is also one-step:
 
-- **创建一个ViewModel来控制是模块消息还是全局消息。**
+- **Create a ViewModel to control whether it is a module message or a global message.**
 
   ```java
   class DemoViewModel : ViewModel() {
   
-      //添加审查代码，控制唯一可信源，所有消息都可以业务自己控制是否发送
+      //Add review code to control the only trusted source, all messages can be sent or not controlled by the business
       val message1 = EventLiveData(object : EventLiveData.PostEventReview<String> {
           override fun review(value: String): Boolean {
   
-              //TODO 消息发送审查代码，返回true审查通过可以发送，返回false审查不通过不可以发送
-  
+              //TODO Message to send the review code, return true to review and can be sent, return false to review and cannot be sent
               return true
           }
       })
       val message2 = EventLiveData(object : EventLiveData.PostEventReview<Bean> {
           override fun review(value: Bean): Boolean {
   
-              //TODO 消息发送审查代码，返回true审查通过可以发送，返回false审查不通过不可以发送
+              //TODO Message to send the review code, return true to review and can be sent, return false to review and cannot be sent
   
               return false
           }
@@ -127,7 +128,7 @@
   }
   ```
 
-- **一行代码发送消息，一行代码订阅消息。**
+- **One line of code sends a message, one line of code subscribes to a message.**
 
   ```kotlin
           //发送一个消息1
@@ -140,7 +141,7 @@
          
   ```
 
-- **针对Java，添加了CallBack优化，提升编写体验。**
+- **For Java, CallBack optimization is added to improve the writing experience.**
 
   ```java
           //发送一个消息1
@@ -155,21 +156,21 @@
           });
   ```
 
-## 注意
+## Note
 
-- **订阅消息时，不传入ViewModelStore**
+- **When subscribing to a message, do not pass in ViewModelStore**
 
-  先接收到的会消费消息，导致其他观察者无法收到消息。
+  The message received first will consume the message, causing other observers to fail to receive the message.
 
-- **订阅消息时，传入同一个ViewModelStore**
+- **When subscribing to a message, pass in the same ViewModelStore**
 
-  先接收到的会消费消息，导致共用同一个ViewModelStore的观察者无法收到消息。
+  The first received message will be consumed, causing observers who share the same ViewModelStore to fail to receive the message.
 
-- **订阅消息时，传入不同ViewModelStore**
+- **When subscribing to a message, pass in a different ViewModelStore**
 
-  单独接收消息，相互不影响。
+  Receive messages individually and do not affect each other.
 
-造成这种情况是因为LiveData有一个问题，就是会发送多个重复消息给观察者，我这边包装处理Observer来防止此类问题：
+This situation is caused because LiveData has a problem, that is, it will send multiple duplicate messages to the observer. I package the Observer here to prevent such problems:
 
 ```java
     /**
@@ -235,6 +236,7 @@
 ```
 
 ## License
+
 ```
 Copyright 2020 The Android Open Source Project
 
