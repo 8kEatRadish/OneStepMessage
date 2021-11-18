@@ -40,7 +40,7 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
-        OSM.Companion.with(DemoViewModel.class).getMessage1().observeEvent(this, new ViewModelStore(), new EventLiveData.OnChanged<String>() {
+        OSM.Companion.with(DemoViewModel.class).getMessage1().observeEventSticky(this, new ViewModelStore(), new EventLiveData.OnChanged<String>() {
             @Override
             public void onChanged(String value) {
                 showMessage1.setText(value);
