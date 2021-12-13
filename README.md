@@ -10,6 +10,12 @@
 
 基于ViewModel和LiveData的消息总线框架。
 
+## 更新日志
+> 1.0.1
+- 区分粘性消息和普通消息
+> 1.0.0
+
+
 ## 有什么好处
 
 **OneStepMessage**基于LiveData和ViewModel，所以LiveData的优点它都有：
