@@ -30,7 +30,7 @@ object Versions {
     const val androidxJunit = "1.1.1"
 
     // OneStepMessage
-    const val oneStepMessage = "1.0.0"
+    const val oneStepMessage = "1.0.1"
 
 }
 

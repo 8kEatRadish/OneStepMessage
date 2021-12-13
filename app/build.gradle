@@ -45,6 +45,5 @@ dependencies {
     androidTestImplementation Deps.androidxJunit
     androidTestImplementation Deps.espresso
 
-//    implementation Deps.oneStepMessage
-    implementation project(':OneStepMessageLib')
+    implementation Deps.oneStepMessage
 }
